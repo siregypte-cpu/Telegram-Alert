@@ -16,6 +16,6 @@ jobs:
           CUR_DATE=$(date +'%Y-%m-%d')
           CUR_TIME=$(date +'%H:%M:%S')
           curl -s -X POST "https://api.telegram.org/bot7647299098:AAEmA8FKF_KujX5NbclGMP-cZWFDcTAFA7s/sendMessage" \
-          -d "chat_id=-5202473852" \
+          -d "chat_id=-5216371452" \
           -d "text=📌 *إشعار جديد*%0A%0A*العنوان:* ولى امر الطالب احمد محمد يوسف%0A*التاريخ:* $CUR_DATE%0A*الوقت:* $CUR_TIME" \
           -d "parse_mode=Markdown"
