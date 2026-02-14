@@ -1,4 +1,4 @@
-name: Notification
+name: youtube
 
 on:
   workflow_dispatch: # للتشغيل اليدوي للتجربة
