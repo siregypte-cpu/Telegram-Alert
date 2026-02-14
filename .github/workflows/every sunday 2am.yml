@@ -1,0 +1,32 @@
+name: every sunday and tuesday
+
+on:
+  schedule:
+    # الأحد (0) والثلاثاء (2) الساعة 2:00 صباحاً بتوقيت مصر
+    # تعادل 00:00 بتوقيت جرينتش
+    - cron: '0 0 * * 0,2'
+  workflow_dispatch: # يتيح لك تجربة الإرسال الآن يدوياً
+
+jobs:
+  send_message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Message
+        run: |
+          # ضبط توقيت مصر
+          export TZ='Africa/Cairo'
+          CUR_DATE=$(date +'%Y-%m-%d')
+          CUR_TIME=$(date +'%H:%M:%S')
+          
+          # إعدادات بوت شمس
+          TOKEN="8305317876:AAHkPFr8idftz1Rgc6-tdCugaaZTrQsZnP4"
+          CHAT_ID="-5216371452"
+          
+          # نص الرسالة المعدل
+          MESSAGE="🔔 *مواعيد الكورس*%0A%0Aولى امر الطالب احمد محمد يوسف%0A*الموضوع:* تذكير بميعاد الكورس يومى الاحد والثلاثاء الساعه الثانيه صباحاً%0A%0A🗓 *التاريخ:* $CUR_DATE%0A⏰ *الوقت:* $CUR_TIME"
+          
+          # تنفيذ عملية الإرسال
+          curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" \
+          -d "chat_id=$CHAT_ID" \
+          -d "text=$MESSAGE" \
+          -d "parse_mode=Markdown"
