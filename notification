@@ -1,20 +1,0 @@
-name: Course Notification (Old)
-
-on:
-  workflow_dispatch: # للتشغيل اليدوي للتجربة
-
-jobs:
-  send_course:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Send Course Message
-        run: |
-          export TZ='Africa/Cairo'
-          CUR_DATE=$(date +'%Y-%m-%d')
-          CUR_TIME=$(date +'%H:%M:%S')
-          TOKEN="8305317876:AAHkPFr8idftz1Rgc6-tdCugaaZTrQsZnP4"
-          CHAT_ID="-5216371452"
-          
-          MESSAGE="📌 *إشعار قديم*%0A%0Aولى امر الطالب احمد محمد يوسف%0A*تنويه:* يوجد كورس انجلش اليوم الثلاثاء الساعه الثالثه عصرا%0A%0A*التاريخ:* $CUR_DATE%0A*الوقت:* $CUR_TIME"
-          
-          curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=$MESSAGE" -d "parse_mode=Markdown"
