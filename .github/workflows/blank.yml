@@ -1,31 +1,0 @@
-name: Send Telegram Notification
-
-on:
-  schedule:
-    # الأحد والأربعاء الساعة 3:00 عصراً بتوقيت مصر (13:00 جرينتش)
-    - cron: '0 13 * * 0,3'
-  workflow_dispatch: # للتشغيل اليدوي الآن للتجربة
-
-jobs:
-  send_message:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Send Message
-        run: |
-          # ضبط توقيت مصر
-          export TZ='Africa/Cairo'
-          CUR_DATE=$(date +'%Y-%m-%d')
-          CUR_TIME=$(date +'%H:%M:%S')
-          
-          # بياناتك البرمجية
-          TOKEN="8305317876:AAHkPFr8idftz1Rgc6-tdCugaaZTrQsZnP4"
-          CHAT_ID="-5216371452"
-          
-          # نص الرسالة (بدون كلمة الاسم)
-          MESSAGE="📌 *إشعار جديد*%0A%0Aولى امر الطالب احمد محمد يوسف%0A*تنويه:* يوجد كورس انجلش اليوم الثلاثاء الساعه الثالثه عصرا%0A%0A*التاريخ:* $CUR_DATE%0A*الوقت:* $CUR_TIME"
-          
-          # تنفيذ الإرسال
-          curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" \
-          -d "chat_id=$CHAT_ID" \
-          -d "text=$MESSAGE" \
-          -d "parse_mode=Markdown"
