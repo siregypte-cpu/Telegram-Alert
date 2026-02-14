@@ -1,0 +1,24 @@
+name: Send Telegram Notification
+
+on:
+  schedule:
+    # الأحد والأربعاء الساعة 3:00 عصراً بتوقيت مصر (13:00 جرينتش)
+    - cron: '0 13 * * 0,3'
+  workflow_dispatch: # هذا السطر يضيف زر تشغيل يدوي للتجربة
+
+jobs:
+  send_message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Message via Telegram Bot
+        run: |
+          # ضبط المنطقة الزمنية لمصر
+          export TZ='Africa/Cairo'
+          CUR_DATE=$(date +'%Y-%m-%d')
+          CUR_TIME=$(date +'%H:%M:%S')
+          
+          # إرسال الرسالة مع التاريخ والوقت
+          curl -s -X POST "https://api.telegram.org/bot7647299098:AAEmA8FKF_KujX5NbclGMP-cZWFDcTAFA7s/sendMessage" \
+          -d "chat_id=-5202473852" \
+          -d "text=📌 *إشعار جديد*%0A%0A*العنوان:* ولى امر الطالب احمد محمد يوسف%0A*التاريخ:* $CUR_DATE%0A*الوقت:* $CUR_TIME" \
+          -d "parse_mode=Markdown"
