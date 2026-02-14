@@ -1,0 +1,26 @@
+name: Notification
+
+on:
+  workflow_dispatch: # للتشغيل اليدوي للتجربة
+
+jobs:
+  send_course:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Warning Message
+        run: |
+          export TZ='Africa/Cairo'
+          CUR_DATE=$(date +'%Y-%m-%d')
+          CUR_TIME=$(date +'%H:%M:%S')
+          
+          # إعدادات بوت شمس
+          TOKEN="8305317876:AAHkPFr8idftz1Rgc6-tdCugaaZTrQsZnP4"
+          CHAT_ID="-5216371452"
+          
+          # نص الرسالة الجديد
+          MESSAGE="⚠️ *تحذير*%0A%0Aولى امر الطالب مصطفى محمود فتحى%0A*تنويه:* الطالب يفتح الان تطبيق اليوتيوب وغير مهتم بالكورس%0A%0A*التاريخ:* $CUR_DATE%0A*الوقت:* $CUR_TIME"
+          
+          curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" \
+          -d "chat_id=$CHAT_ID" \
+          -d "text=$MESSAGE" \
+          -d "parse_mode=Markdown"
